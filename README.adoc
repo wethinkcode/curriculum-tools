@@ -1,0 +1,106 @@
+== Prerequisites
+
+In order to use the WTC Curriculum Toolchain, you need to install the following:
+
+* https://docs.docker.com/engine/install/[Docker]
+* https://docs.docker.com/compose/install/[Docker Compose]
+* https://www.gnu.org/software/make/[Make]. For Windows OS, https://docs.microsoft.com/en-us/windows/wsl/install-win10[WSL] 
+is recommended.
+* https://stedolan.github.io/jq/[jq]
+
+
+
+
+== Curriculum Author Guide
+
+All content is authored using https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc] and 
+published using https://docs.antora.org/antora/2.3/[Antora].
+
+In Antora, a _component_ consists of one or more _modules_. Each module consists of pages, images, examples, etc.
+
+=== Installing dependencies
+
+Run `make install` to install supported AsciiDoc extensions.
+
+=== Build and preview the content 
+
+Run `make preview` and open http://localhost:8051/ to view the component on your local machine.
+
+This first runs `make clean`, then `make build` then `make preview`.
+The `clean` target deletes the `build/site` and `build/cache` directories for a clean build.
+The `build` target builds a local copy of the component. The output is placed in the `build/site` directory.
+The `preview` target serves `build/site` on http://localhost:8051/
+
+=== Watching for file changes
+
+In a terminal, run `make preview` to start up the local HTTP server for the component.
+Then, in another terminal, run `make watch`. This will watch for local file changes in the content directories and rebuild the local site.
+Refresh the page in the browser to see the changes.
+
+=== Updating the UI
+
+Run `make ui` to pull the latest UI package.
+
+=== Content Tips
+
+==== Font-Awesome
+
+Support for inline icons using Font-Awesome is enabled. See https://asciidoctor.org/docs/user-manual/#inline-icons
+
+==== Diagram Markup
+
+Support via https://kroki.io/ is enabled. Also see https://github.com/Mogztter/asciidoctor-kroki.
+
+For example:
+
+```
+[plantuml]
+----
+alice -> bob
+bob -> alice
+----
+```
+
+
+
+
+== Release Manager Guide
+
+=== Installing dependencies
+
+Run `make install` to install supported AsciiDoc extensions.
+
+=== Creating the release outline
+
+In the `release-outline` folder, create two documents using the release number:
+
+----
+nav-0.adoc
+release-0.txt
+----
+
+In the release file, list the paths to the pages or modules you wish to release from the modules directory under the content directory (make sure there is an empty line at the end of the file):
+
+----
+ROOT
+
+----
+
+In the `nav.adoc`, create the full navigation as you would like it to appear for that release. If the release only includes the start page, `nav.adoc` can be empty.
+
+=== Releasing content
+
+Run `make release` with the release number to clean the release folder and copy over the appropriate navigation and content (e.g. `make release 5`).
+
+=== Build and preview the content 
+
+Run `make preview PLAYBOOK=release` and open http://localhost:8051/ to view the component on your local machine.
+
+This first runs `make clean`, then `make build` then `make preview`.
+The `clean` target deletes the `build/site` and `build/cache` directories for a clean build.
+The `build` target builds a local copy of the component. The output is placed in the `build/site` directory.
+The `preview` target serves `build/site` on http://localhost:8051/
+
+=== Updating the UI
+
+Run `make ui` to pull the latest UI package.

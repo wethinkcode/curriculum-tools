@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  antora:
+    build:
+      context: .
+      dockerfile: antora.dockerfile
+    environment:
+      - GIT_CREDENTIALS
+    ports:
+      - 8081:8080
+    volumes:
+      - .:/site

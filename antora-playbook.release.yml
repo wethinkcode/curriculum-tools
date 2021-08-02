@@ -1,0 +1,24 @@
+site:
+  title: WTC Curriculum
+  url: https://1st.curriculum.wethinkco.de
+  robots: disallow
+content:
+  sources:
+  - url: ./
+    branches: HEAD
+    edit_url: false
+    start_path: release
+runtime:
+  cache_dir: ./build/cache
+ui:
+  bundle:
+    url: ./tmp/ui-bundle.zip
+urls:
+  html_extension_style: indexify
+asciidoc:
+  extensions:
+  - asciidoctor-kroki
+  attributes:
+    experimental: true
+    kroki-fetch-diagram: true
+    page-pagination: true

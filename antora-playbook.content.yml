@@ -1,0 +1,25 @@
+site:
+  title: WTC Curriculum
+  url: http://localhost:8081
+  start_page: overview::index.adoc
+  robots: disallow
+content:
+  sources:
+  - url: ./
+    branches: HEAD
+    edit_url: false
+    start_path: content
+runtime:
+  cache_dir: ./build/cache
+ui:
+  bundle:
+    url: ./tmp/ui-bundle.zip
+urls:
+  html_extension_style: indexify
+asciidoc:
+  extensions:
+  - asciidoctor-kroki
+  attributes:
+    experimental: true
+    kroki-fetch-diagram: true
+    page-pagination: true
