@@ -1,0 +1,76 @@
+matrix:
+- name: Asciidoc
+  sources:
+  - '**/*.adoc'
+  default_encoding: utf-8
+  aspell:
+    lang: en
+  dictionary:
+    wordlists:
+    - wordlist.txt
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.url
+  - pyspelling.filters.context:
+      context_visible_first: true
+      delimiters:
+      # Ignore multiline content between source blocks (4 dashes)
+      # ----
+      # content
+      # ----
+      - open: '(?s)^(?P<open> *-{4})$'
+        close: '^(?P=open)$'
+      # Ignore multiline content between fences (3 back ticks)
+      # ```
+      # content
+      # ```
+      - open: '(?s)^(?P<open> *`{3})$'
+        close: '^(?P=open)$'
+      # Ignore multiline content between example blocks (4 dots)
+      # ....
+      # content
+      # ....
+      - open: '(?s)^(?P<open> *.{4})$'
+        close: '^(?P=open)$'
+      # Ignore text between inline back ticks
+      - open: '(?P<open>`+)'
+        close: '(?P=open)'
+      # Ignore text between inline hashes
+      - open: '(?P<open>#+)'
+        close: '(?P=open)'
+      # Ignore uuids
+      - open: '([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'
+        close: '(?:)'
+      # Ignore text between square brackets
+      - open: '(^\[(.*)\]$)'
+        close: '(?:)'
+      # Ignore text in xref
+      - open: '(.*xref:.*\[)'
+        close: '(?:)'
+      # Ignore page properties
+      - open: '(^:.*:.*$)'
+        close: '(?:)'
+      # Ignore text in video ref
+      - open: '(video::.*\])'
+        close: '(?:)'
+      # Ignore text in image ref
+      - open: '(image:.*\[)'
+        close: '(?:)'
+      # Ignore text in include ref
+      - open: '(include::.*\[)'
+        close: '(?:)'
+      #Ignore text in link ref
+      - open: '(link:.*\[)'
+        close: '(?:)'
+      #Ignore button code
+      - open: '(btn:\[)'
+        close: '(?:)'
+      #Ignore key-bindng code
+      - open: '(kbd:\[)'
+        close: '(?:)'
+      #Ignore comments
+      - open: '(^//.*$)'
+        close: '(?:)'
+      # Ignore text between anchors
+      - open: '(<<(.*)>>)'
+        close: '(?:)'
