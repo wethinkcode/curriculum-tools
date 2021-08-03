@@ -41,6 +41,12 @@ Refresh the page in the browser to see the changes.
 
 Run `make ui` to pull the latest UI package.
 
+=== Updating the tools
+
+Run `make tools` to pull the latest changes from the `curriculum-tools` repository.
+
+If you come across any merge conflicts, resolve them in VS Code and commit when you are done.
+
 === Content Tips
 
 ==== Font-Awesome
@@ -104,3 +110,9 @@ The `preview` target serves `build/site` on http://localhost:8051/
 === Updating the UI
 
 Run `make ui` to pull the latest UI package.
+
+=== Updating the tools
+
+Run `make tools` to pull the latest changes from the `curriculum-tools` repository.
+
+If you come across any merge conflicts, resolve them in VS Code and commit when you are done.

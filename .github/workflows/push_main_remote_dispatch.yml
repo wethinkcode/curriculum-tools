@@ -1,0 +1,23 @@
+name: Push to Main Remote Dispatch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout Repo
+
+      - name: Alert Repo
+        run: |
+          curl \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/wethinkcode/curriculum-playbook-first-year/dispatches \
+          -u ${{ secrets.PRIVATE_REPO_ACCESS_TOKEN }} \
+          -d '{"event_type": "deploy_dev", "client_payload": { "payload": ""}}'
