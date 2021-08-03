@@ -66,5 +66,8 @@ release:
 # tools: @ Update the tools from the curriculum-tools repository
 .PHONY: tools
 tools: 
+	git remote -v | grep -w tools && \
+	git remote set-url tools git@github.com:wethinkcode/curriculum-tools.git || \
 	git remote add tools git@github.com:wethinkcode/curriculum-tools.git
 	git pull tools main --allow-unrelated-histories
+
