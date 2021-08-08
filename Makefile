@@ -34,6 +34,13 @@ watch:
 	-i module-playbook.yml 'content/**' \
 	-- antora generate module-playbook.yml
 
+# test: @ Run checks that prove/disprove the source is ready for release
+define test_tasks
+pyspelling -c .spellcheck.yml
+endef
+test:
+	docker-compose run -u $$(id -u) antora $(test_tasks)
+
 # shell: @ Opens bash shell in antora container
 shell: CMD ?= /bin/sh
 shell:
